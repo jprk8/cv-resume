@@ -1,0 +1,32 @@
+.general-wrapper {
+    border: 1px solid white;
+    padding: 0 40px 30px;
+    border-radius: 16px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    align-items: start;
+    text-align: left;
+}
+
+input,
+.saved-item {
+    width: 250px;
+    height: 30px;
+    border-radius: 10px;
+    font-size: 20px;
+    border: none;
+    padding: 4px 8px;
+}
+
+.saved-item {
+    font-weight: 800;
+}
