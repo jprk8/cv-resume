@@ -83,6 +83,7 @@ body {
   background-color: #242424;
   color: white;
   font-family: sans-serif;
+  text-align: center;
 }
 
 img, picture, video, canvas, svg {
@@ -121,10 +122,13 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 40px 30px;
   border-radius: 16px;
   width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .form-wrapper h2 {
-  padding: 20px;
+  padding-top: 20px;
 }
 
 form {
@@ -147,11 +151,14 @@ form {
 input,
 .saved-item {
   width: 100%;
-  height: 30px;
+  max-height: 200px;
   border-radius: 8px;
   font-size: 20px;
   border: none;
   padding: 5px 10px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 input {
@@ -161,4 +168,18 @@ input {
 
 .saved-item {
   font-weight: 800;
+}
+
+.workEntryNum {
+  text-align: left;
+}
+
+textarea {
+  background-color: #383838;
+  border-radius: 8px;
+  padding: 5px 10px;
+  color: white;
+  width: 100%;
+  max-width: 618px;
+  max-height: 200px;
 }
