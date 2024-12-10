@@ -1,13 +1,10 @@
 import { useState, useRef } from 'react';
-import '../styles/GeneralForm.css'
 
 export default function GeneralForm() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const fullName = firstName + ' ' + lastName;
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
-    // boolean for dynamic save/edit button
     const [saved, setSaved] = useState(false);
 
     const formRef = useRef(null);
