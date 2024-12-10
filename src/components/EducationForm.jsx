@@ -24,10 +24,10 @@ export default function EducationForm() {
                         }
                     </label>
                     <label>
-                        <div>Date/Year of Study</div>
+                        <div>Date of Study</div>
                         {saved
                             ? <div className='saved-item'>{date}</div>
-                            : <input type='num' value={date} onChange={e => setDate(e.target.value)} />
+                            : <input type='month' value={date} onChange={e => setDate(e.target.value)} />
                         }
                     </label>
                 </div>

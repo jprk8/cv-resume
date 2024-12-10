@@ -1,132 +1,151 @@
 import { useState } from 'react';
 
-function WorkEntry(props) {
+function WorkEntry({ saved, entryData, updateEntry, deleteEntry, index }) {
+    const [entry, setEntry] = useState(entryData);
 
+    // make function for onChange to handle change
     function handleChange(e) {
-        
+        const { name, value } = e.target;
+        const updatedEntry = { ...entry, [name]: value }
+        setEntry(updatedEntry);
+        updateEntry(entry.id, updatedEntry);
     }
 
     return (
-        <>
-            <div className='workEntryNum'>Entry Number: {props.num}</div>
+        <div className='work-entry'>
+            <div className='entry-header'>
+                <div>Work Entry: {index}</div>
+                <button type='button' onClick={() => deleteEntry(entry.id)}>
+                    Delete
+                </button>
+            </div>
             <div className='form-row'>
                 <label>
                     <div>Company</div>
-                    {props.saved
-                        ? <div className='saved-item'>{props.company}</div>
+                    {saved
+                        ? <div className='saved-item'>{entry.company}</div>
                         : <input
                             type='text'
                             id='company'
                             name='company'
-                            value={props.company} 
-                            onChange={e => props.setCompany(e.target.value)} />
+                            value={entry.company} 
+                            onChange={handleChange} />
                     }
                 </label>
                 <label>
                     <div>Position/Title</div>
-                    {props.saved
-                        ? <div className='saved-item'>{props.position}</div>
+                    {saved
+                        ? <div className='saved-item'>{entry.position}</div>
                         : <input
                             type='text'
                             id='position'
                             name='position'
-                            value={props.position}
-                            onChange={e => props.setPosition(e.target.value)} />
+                            value={entry.position}
+                            onChange={handleChange} />
                     }
                 </label>
             </div>
             <div className='form-row'>
                 <label>
                     <div>Start Date</div>
-                    {props.saved
-                        ? <div className='saved-item'>{props.dateStart}</div>
+                    {saved
+                        ? <div className='saved-item'>{entry.dateStart}</div>
                         : <input
                             type='date'
                             id='dateStart'
                             name='dateStart'
-                            value={props.dateStart}
-                            onChange={e => props.setDateStart(e.target.value)} />
+                            value={entry.dateStart}
+                            onChange={handleChange} />
                     }
                 </label>
                 <label>
                     <div>End Date</div>
-                    {props.saved
-                        ? <div className='saved-item'>{props.dateEnd}</div>
+                    {saved
+                        ? <div className='saved-item'>{entry.dateEnd}</div>
                         : <input
                             type='date'
                             id='dateEnd'
                             name='dateEnd'
-                            value={props.dateEnd}
-                            onChange={e => props.setDateEnd(e.target.value)} />
+                            value={entry.dateEnd}
+                            onChange={handleChange} />
                     }
                 </label>
             </div>
             <div className='form-row'>
                 <label>
                     <div>Work Details</div>
-                    {props.saved
-                        ? <div className='saved-item'>{props.workDetail}</div>
+                    {saved
+                        ? <div className='saved-item' style={{height: '180px'}}>{entry.workDetail}</div>
                         : <textarea
                             id='workDetail'
                             name='workDetail'
                             rows='7'
-                            value={props.workDetail}
-                            onChange={e => props.setWorkDetail(e.target.value)} />
+                            value={entry.workDetail}
+                            onChange={handleChange} />
                     }
                 </label>
             </div>
-        </>
+        </div>
     )
 }
 
-const index = 1;
-
 export default function WorkForm() {
     const [saved, setSaved] = useState(false);
-    const [company, setCompany] = useState('');
-    const [position, setPosition] = useState('');
-    const [dateStart, setDateStart] = useState('');
-    const [dateEnd, setDateEnd] = useState('');
-    const [workDetail, setWorkDetail] = useState('');
-
-    // using object as state
-    // const [workdData, setWorkData] = useState({
-    //     company: '',
-    //     position: '',
-    //     dateStart: '',
-    //     dateEnd: '',
-    //     workdetail: '',
-    // });
+    const [entries, setEntries] = useState([
+        {
+            id: 1,
+            company: '',
+            position: '',
+            dateStart: '',
+            dateEnd: '',
+            workdDetail: '',
+        },
+    ]);
 
     function handleSave(e) {
         e.preventDefault();
         // saved ? setSaved(false) : setSaved(true);
-        if (saved) {
-            setSaved(false);
-        } else {
-            setSaved(true);
-            console.log(`Company: ${company}`);
-        }
+        // below has the same effect
+        setSaved(!saved);
+    }
+
+    function addEntry() {
+        const newEntry = {
+            id: entries.length + 1,
+            company: '',
+            position: '',
+            dateStart: '',
+            dateEnd: '',
+            workdDetail: '',
+        };
+        setEntries([...entries, newEntry]);
+    }
+
+    function updateEntry(id, updatedEntry) {
+        setEntries(entries.map((entry) => (entry.id === id ? updatedEntry : entry)));
+    }
+
+    function deleteEntry(id) {
+        setEntries(entries.filter((entry) => entry.id != id));
     }
 
     return (
         <div className='form-wrapper'>
+            <h2>Work Experience</h2>
             <form id='work-form'>
-                <h2>Work Experience</h2>
-                <WorkEntry
-                    num={index}
-                    saved={saved}
-                    company={company}
-                    setCompany={setCompany}
-                    position={position}
-                    setPosition={setPosition}
-                    dateStart={dateStart}
-                    setDateStart={setDateStart}
-                    dateEnd={dateEnd}
-                    setDateEnd={setDateEnd}
-                    workDetail={workDetail}
-                    setWorkDetail={setWorkDetail}
-                />
+                {entries.map((entry, index) => (
+                    <WorkEntry 
+                        key={entry.id}
+                        saved={saved}
+                        entryData={entry}
+                        updateEntry={updateEntry}
+                        deleteEntry={deleteEntry}
+                        index={index + 1}
+                    />
+                ))}
+                <button type='button' onClick={addEntry}>
+                    Add Entry
+                </button>
                 <button onClick={handleSave}>
                     {saved ? 'Edit' : 'Save'}
                 </button>
