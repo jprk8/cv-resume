@@ -1,8 +1,7 @@
-# React + Vite
+# CV/Resume Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CV/Resume application built using vite and react. <br>
+This project's main focus is to build components using react. <br>
+Improved understanding of states and props to maniuplate data.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[View Page](https://cv-resume-7cn.pages.dev/)
